@@ -1,0 +1,33 @@
+{
+			"interface":
+			[
+			{
+				"interfaceType": "nStateButton",
+				"eventType": "nState",
+				"numStates": 3,
+				"paramioID"  : "\\nStateButton\\0",
+				"message": ["mousedown"],
+				"position": {"x": "5%", "y": "5%", "width": "20%", "height": "20%"},
+				"color": "blue"
+			},
+
+			{
+				"interfaceType": "slider",
+				"paramioID"  : "\\slider\\0",
+				"message": {"buttonDown": 1, "buttonUp": 0},
+				"position": {"x": "20%", "y": "20%", "width": "20%", "height": "70%"},
+				"orientation": "v",
+				"color": "green"
+			},
+
+			{
+				"interfaceType": "xyslider",
+				"paramioID"  : "\\xyslider\\1",
+				"message": {"buttonDown": 1, "buttonUp": 0},
+				"position": {"x": "40%", "y": "60%", "width": "30%", "height": "30%"},
+				"orientation": "h",
+				"color": "red"
+			}
+
+			]
+}

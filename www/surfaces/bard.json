@@ -1,0 +1,55 @@
+{
+    "interface": [
+        {
+            "interfaceType": "hslider",
+            "eventType": "nState",
+            "paramioID": "\\hslider\\28362",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "5.39%",
+                "y": "74.96%",
+                "width": "91.91%",
+                "height": "12.67%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "blue"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "\\nStateButton\\45289",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "4.17%",
+                "y": "7.69%",
+                "width": "94.36%",
+                "height": "27.75%"
+            },
+            "orientation": "h",
+            "numStates": "2",
+            "color": "green"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "\\pushButton\\19063",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "4.66%",
+                "y": "36.80%",
+                "width": "93.87%",
+                "height": "27.15%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "red"
+        }
+    ]
+}

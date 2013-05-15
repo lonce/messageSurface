@@ -1,0 +1,176 @@
+
+<HTML>
+<HEAD>
+	<link rel="stylesheet" type="text/css" href="css/appstyle.css"/>
+	<script type="text/javascript" data-main="appscripts/main.js" src="jslibs/require.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
+ <title>Title</title>
+</HEAD>
+<BODY>
+
+    <div id="app">
+        <h3> jsaSurface  </h3>
+
+     </div>
+
+
+<!--  used in ddebugging to get pitch roll info 
+    <div style="background-color:#DDDDFF;height:320px;width:80px;float:left;">
+        <h4>
+        Pitch    <div id="pitch" align="center">p</div><br>
+        Roll    <div id="roll" align="center">r</div><br>
+        </h4>   
+    </div>
+-->
+
+
+
+
+    <!-- hidden divs for dialog boxes-->
+    <div hidden class="dbox" id="mydialog" title="jsaOSC Configure">
+        <input class="dialog-content" id="host"/>
+        <label class="dialog-content" for="host">Host</label> <br>
+        <input class="dialog-content" id="port"/>
+        <label class="dialog-content" for="port">Port</label> <br>
+        <input class="dialog-content" id="editmode_checkbox" type="checkbox" checked=true/>
+        <label class="dialog-content" for="editmode_checkbox">EditMode</label> <br>
+
+        
+        <label  id="loadSurface" for="surfaceSelector">Load Surface</label>
+        <select id="surfaceSelector"></select> </br>
+        <button class="modalInput" id="modalInputID" rel="#prompt">Save Surface</button></br> 
+
+        <p> Select for new GUI element: </p>
+        <input class="dialog-content" type="radio" id="radio0" name="RadioGroup1" value="0" /> 
+        <label class="dialog-content" for="radio0">nState Button</label> <br>
+
+        <input class="dialog-content" type="radio" id="radio1" name="RadioGroup1" value="1" /> 
+        <label class="dialog-content" for="radio1">Push Button</label> <br>
+
+        <input class="dialog-content" type="radio" id="radio2" name="RadioGroup1" value="2" />
+        <label class="dialog-content" for="radio2">Vertical Slider</label> <br>
+
+        <input class="dialog-content" type="radio" id="radio3" name="RadioGroup1" value="3" />
+        <label class="dialog-content" for="radio3">Horizontal Slider</label> <br>
+
+        <input class="dialog-content" type="radio" id="radio4" name="RadioGroup1" value="4" />
+        <label class="dialog-content" for="radio4">xy Box</label> <br>
+
+        <input class="dialog-content" type="radio" id="radio5" name="RadioGroup1" value="5" />
+        <label class="dialog-content" for="radio4">pitch/roll</label> <br>
+
+        <input class="dialog-content" type="radio" id="radio6" name="RadioGroup1" value="6" checked="true"/>
+        <label class="dialog-content" for="radio5">None</label> 
+    </div>
+
+    <div hidden class="dbox" id="sliderdialog" title="Slider">
+        <button type="button" id="deleteElement">Delete Element</button> 
+        <input class="dialog-content" id="paramioID"/>
+        <label class="dialog-content" for="paramioID">addressID</label> <br>
+        <input class="dialog-content" id="color"/>
+        <label class="dialog-content" for="color">Color</label> <br>
+        <input class="dialog-content" id="x"/>
+        <label class="dialog-content" for="x">x location</label> <br>
+        <input class="dialog-content" id="y"/>
+        <label class="dialog-content" for="y">y location</label> <br>  
+        <input class="dialog-content" id="width"/>
+        <label class="dialog-content" for="width">width</label> <br>  
+        <input class="dialog-content" id="height"/>
+        <label class="dialog-content" for="height">height</label> <br>  
+        <input class="dialog-content" id="orientation"/>
+        <label class="dialog-content" for="orientation">orientation</label> <br>  
+    </div>
+
+    <div hidden class="dbox" id="xysliderdialog" title="XY Slider">
+        <button type="button" id="deleteElement">Delete Element</button> 
+        <input class="dialog-content" id="paramioID"/>
+        <label class="dialog-content" for="paramioID">addressID</label> <br>
+        <input class="dialog-content" id="color"/>
+        <label class="dialog-content" for="color">Color</label> <br>
+        <input class="dialog-content" id="x"/>
+        <label class="dialog-content" for="x">x location</label> <br>
+        <input class="dialog-content" id="y"/>
+        <label class="dialog-content" for="y">y location</label> <br>  
+        <input class="dialog-content" id="width"/>
+        <label class="dialog-content" for="width">width</label> <br>  
+        <input class="dialog-content" id="height"/>
+        <label class="dialog-content" for="height">height</label> <br>   
+    </div>
+
+    <div hidden class="dbox" id="prsliderdialog" title="XY Slider">
+        <button type="button" id="deleteElement">Delete Element</button> 
+        <input class="dialog-content" id="paramioID"/>
+        <label class="dialog-content" for="paramioID">addressID</label> <br>
+        <input class="dialog-content" id="color"/>
+        <label class="dialog-content" for="color">Color</label> <br>
+        <input class="dialog-content" id="x"/>
+        <label class="dialog-content" for="x">x location</label> <br>
+        <input class="dialog-content" id="y"/>
+        <label class="dialog-content" for="y">y location</label> <br>  
+        <input class="dialog-content" id="width"/>
+        <label class="dialog-content" for="width">width</label> <br>  
+        <input class="dialog-content" id="height"/>
+        <label class="dialog-content" for="height">height</label> <br>   
+        <input class="dialog-content" id="invisible"/>
+        <label class="dialog-content" for="invisible">invisible</label> <br>   
+    </div>
+
+
+    <div hidden class="dbox" id="nStateButtondialog" title="nState Button">
+        <button type="button" id="deleteElement">Delete Element</button> 
+        <input class="dialog-content" id="paramioID"/>
+        <label class="dialog-content" for="paramioID">addressID</label> <br>
+        <input class="dialog-content" id="color"/>
+        <label class="dialog-content" for="color">Color</label> <br>
+        <input class="dialog-content" id="x"/>
+        <label class="dialog-content" for="x">x location</label> <br>
+        <input class="dialog-content" id="y"/>
+        <label class="dialog-content" for="y">y location</label> <br>  
+        <input class="dialog-content" id="width"/>
+        <label class="dialog-content" for="width">width</label> <br>  
+        <input class="dialog-content" id="height"/>
+        <label class="dialog-content" for="height">height</label> <br>  
+        <input class="dialog-content" id="numStates"/>
+        <label class="dialog-content" for="numStates">Number of States</label> <br>  
+    </div>
+
+    <div hidden class="dbox" id="pushButtondialog" title="Push Button">
+        <button type="button" id="deleteElement">Delete Element</button> 
+        <input class="dialog-content" id="paramioID"/>
+        <label class="dialog-content" for="paramioID">addressID</label> <br>
+        <input class="dialog-content" id="color"/>
+        <label class="dialog-content" for="color">Color</label> <br>
+        <input class="dialog-content" id="x"/>
+        <label class="dialog-content" for="x">x location</label> <br>
+        <input class="dialog-content" id="y"/>
+        <label class="dialog-content" for="y">y location</label> <br>  
+        <input class="dialog-content" id="width"/>
+        <label class="dialog-content" for="width">width</label> <br>  
+        <input class="dialog-content" id="height"/>
+        <label class="dialog-content" for="height">height</label> <br>   
+    </div>
+
+
+    <!-- user input dialog -->
+    <div hidden class="modal" id="prompt">
+      <h2>Save Surface</h2>
+     
+      <p>
+        File name only without extension.<br>
+        Surface will be saved on the server.
+      </p>
+     
+      <!-- input form. you can press enter too -->
+      <form>
+        <input />
+        <button type="submit"> OK </button>
+        <button type="button" class="close"> Cancel </button>
+      </form>
+      <br />
+     
+    </div>
+
+
+
+</BODY>
+</HTML>

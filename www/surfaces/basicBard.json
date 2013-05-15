@@ -1,0 +1,73 @@
+{
+    "interface": [
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "\\nStateButton\\81268",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "7.24%",
+                "y": "12.90%",
+                "width": "86.82%",
+                "height": "27.42%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "prslider",
+            "eventType": "nState",
+            "paramioID": "\\prslider\\29104",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "83.98%",
+                "y": "2.07%",
+                "width": "9.04%",
+                "height": "5.53%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "blue",
+            "invisible": ""
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "\\pushButton\\61711",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "7.75%",
+                "y": "46.31%",
+                "width": "86.56%",
+                "height": "29.03%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "red"
+        },
+        {
+            "interfaceType": "hslider",
+            "eventType": "nState",
+            "paramioID": "\\hslider\\36195",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "8.27%",
+                "y": "84.75%",
+                "width": "86.05%",
+                "height": "9.15%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "blue"
+        }
+    ]
+}
