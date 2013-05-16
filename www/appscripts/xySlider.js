@@ -15,7 +15,7 @@ define(
          var myWindow=w;
          var canvasSlider = w.document.getElementById(id);
 
-         var sliderButtonSpan=5;
+         var sliderButtonSpan=7;
          var k_sliderInc=0.01; // proportion of total slider value length
          var mousePressed=false;
 
@@ -89,6 +89,7 @@ define(
 
          canvasSlider.drawSlider = function (pos){
             ctx.clearRect(0, 0, sliderCanvas.width, sliderCanvas.height);
+
             ctx.fillStyle=m_Color;
             ctx.strokeStyle=m_Color;
 
@@ -97,6 +98,8 @@ define(
             ctx.stroke();
             ctx.fill();
             ctx.closePath();
+
+
 
             ctx.moveTo(canvasSlider.value.x*sliderCanvas.width,0);
             ctx.lineTo(canvasSlider.value.x*sliderCanvas.width,sliderCanvas.height);

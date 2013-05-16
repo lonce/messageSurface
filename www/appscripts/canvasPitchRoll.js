@@ -16,7 +16,7 @@ define(
          var canvasPR = w.document.getElementById(id);
 
 
-         var prBallSize=5;
+         var prBallSize=10;
 
          var m_Color="#FFFFFF";
 
@@ -56,16 +56,10 @@ define(
 
          canvasPR.drawSlider = function (pos){
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle=m_Color;
-            ctx.strokeStyle=m_Color;
-
-            ctx.beginPath();
-            ctx.arc(canvasPR.value.x*canvas.width,(1-canvasPR.value.y)*canvas.height,prBallSize,0,2*Math.PI);
-            ctx.stroke();
-            ctx.fill();
-            ctx.closePath();
 
             //alert("call to drawSlider with x =  " + canvasPR.value.x + " and y = " + canvasPR.value.y);
+            ctx.fillStyle=m_Color;
+            ctx.strokeStyle=m_Color;
 
             ctx.moveTo(canvasPR.value.x*canvas.width,0);
             ctx.lineTo(canvasPR.value.x*canvas.width,canvas.height);
@@ -74,6 +68,15 @@ define(
             ctx.moveTo(0,(1-canvasPR.value.y)*canvas.height);
             ctx.lineTo(canvas.width,(1-canvasPR.value.y)*canvas.height);
             ctx.stroke();
+
+            ctx.fillStyle="#FF0000";
+            ctx.strokeStyle="#FF0000";
+            ctx.beginPath();
+            ctx.arc(canvasPR.value.x*canvas.width,(1-canvasPR.value.y)*canvas.height,prBallSize,0,2*Math.PI);
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
+
          }
 
          // mapping keys so computer players can changed paramters while the play ----------------

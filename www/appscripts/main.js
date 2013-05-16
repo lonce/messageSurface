@@ -111,7 +111,7 @@ require(
 			switch(otype){
 				case 'nStateButton':
 					// the ui_elmt will be the firstChild of the div
-					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt nStateButton\"  id = \"" + id  + "\"  style = \" border:3px solid " + ocolor + "; left:  0%; top: 0%; width: 100%;  height:100%;\" />";
+					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt nStateButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px;\" />";
 					$('#app').append(newdiv);
 
 					//gui=window.document.getElementById(id);
@@ -122,13 +122,18 @@ require(
 
 				case 'pushButton':
 					// the ui_elmt will be the firstChild of the div
-					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt pushButton\"  id = \"" + id  + "\"  style = \" border:3px solid " + ocolor + "; left:  0%; top: 0%; width: 100%;  height:100%;\" />";
+					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt pushButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px; box-shadow: 5px 5px 10px #FFFFFF;\" />";
 					$('#app').append(newdiv);
 
 					//gui=window.document.getElementById(id);
 					gui = jsaPushButton(window,id);
-					gui.on('mousedown', function (e) {myButtonfunc(e);}, false);
-					gui.on('mouseup', function (e) {myButtonfunc(e);},false);
+					gui.on('mousedown', function (e) {myPushButton(e, $(this));}, false);
+					//gui.on('mousedown', function (e) {myButtonfunc(e);},false);
+
+					//gui.on('mousedown', function (e) {$(this).css( 'background', '-webkit-gradient(linear, left top, right top, color-stop(0%,rgba(45,20,150,.9)), color-stop(56%,rgba(54,22,200,.9)), color-stop(100%,rgba(61,23,255,.9))');}, false);
+
+
+					gui.on('mouseup', function (e) {myPushButton(e, $(this));},false);
 
 					break;
 
@@ -222,6 +227,26 @@ require(
 			}
 			messageMap.send([String(m_currentGuiTarget.id), m_currentGuiTarget.value]);
 		}
+
+		function myPushButton(e, qbutt){
+			console.log("myButtonfunc");
+			e.preventDefault();
+			if (e.button===2){
+				editGuiElmt(e.target);
+			}
+			if (e.type==="mousedown"){
+				m_currentGuiTarget = e.currentTarget;
+	 			//qbutt.css('background', '#009999');  
+				qbutt.css('box-shadow', '');//-webkit-gradient(linear, left top, right top, color-stop(0%,rgba(45,20,150,.9)), color-stop(56%,rgba(54,22,200,.9)), color-stop(100%,rgba(61,23,255,.9))');
+				//qbutt.css( 'background', '-webkit-gradient(linear, left top, right top, color-stop(0%,rgba(45,20,150,.9)), color-stop(56%,rgba(54,22,200,.9)), color-stop(100%,rgba(61,23,255,.9))');
+			} else{
+				qbutt.css('box-shadow', '5px 5px 10px #FFFFFF');
+			}
+			messageMap.send([String(m_currentGuiTarget.id), m_currentGuiTarget.value]);
+		}
+
+
+
 
 		function mySliderfunc(e){
 			if (e.button===2){
