@@ -47,6 +47,7 @@ require(
 		var g_clientPort="0000"; // for sending OSC messages to 
 
 		var interfaceType=["nStateButton", "pushButton", "vslider", "hslider", "xyslider", "prslider", "none"];
+		var eventType=["nState",        "nState",     "range",   "range",   "range2D",  "range2D", "none"];
 
 		var inputData={};
 		var surfaceData = {  // should probably have a factory for making these
@@ -373,7 +374,8 @@ require(
 											makegui(guiElmtData(
 												{
 													"interfaceType": interfaceType[value],
-													"paramioID"  : "\\" + interfaceType[value] + "\\"+utils.makeid(5),
+													"eventType": eventType[value],
+													"paramioID"  :  interfaceType[value] + "/"+utils.makeid(5),
 													//"message": {"buttonDown": 1, "buttonUp": 0},
 													"position": {"x": (100*g_locX/window.innerWidth).toFixed(2) + "%" , "y": (100*g_locY/window.innerHeight).toFixed(2) + "%"},
 													"orientation": (interfaceType[value] === "vslider") ? "v" : "h" , // orientation is ignored in makegui if not a slider type
