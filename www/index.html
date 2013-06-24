@@ -9,7 +9,7 @@
 <BODY>
 
     <div id="app">
-        <h3> jsaSurface  </h3>
+        <h3> messageSurface  </h3>
 
      </div>
 
@@ -27,13 +27,15 @@
 
 
     <!-- hidden divs for dialog boxes-->
-    <div hidden class="dbox" id="mydialog" title="jsaOSC Configure">
+    <div hidden class="dbox" id="mydialog" title="jsaOSC Configure" >
+        <input class="dialog-content" id="editmode_checkbox" type="checkbox" checked=true/>
+        <label class="dialog-content" for="editmode_checkbox">EditMode</label> <br>
+
         <input class="dialog-content" id="host"/>
         <label class="dialog-content" for="host">Host</label> <br>
         <input class="dialog-content" id="port"/>
         <label class="dialog-content" for="port">Port</label> <br>
-        <input class="dialog-content" id="editmode_checkbox" type="checkbox" checked=true/>
-        <label class="dialog-content" for="editmode_checkbox">EditMode</label> <br>
+
 
         
         <label  id="loadSurface" for="surfaceSelector">Load Surface</label>

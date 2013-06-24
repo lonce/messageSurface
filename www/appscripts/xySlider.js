@@ -56,7 +56,6 @@ define(
          }
 
          function onMouseMove(e){
-            //console.log("onMouseMove");
             if (event.button === 2) return;
             if (!mousePressed) return;
             var m = utils.getCanvasMousePosition(sliderCanvas, e);

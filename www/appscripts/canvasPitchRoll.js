@@ -15,6 +15,9 @@ define(
          var myWindow=w;
          var canvasPR = w.document.getElementById(id);
 
+         canvasPR.data={};
+         canvasPR.data.paramioID=id;
+
 
          var prBallSize=10;
 
@@ -29,12 +32,13 @@ define(
          w.addEventListener('deviceorientation', movePR);
 
 
+
          function movePR(e){
 
             var pitch = e.beta;
             var roll = e.gamma;
 
- 
+
             canvasPR.value.y = utils.mapconstrain(-45, 45, 0, 1, pitch);
             canvasPR.value.x = utils.mapconstrain(-45, 45, 0, 1, roll);
 
@@ -42,6 +46,12 @@ define(
             //w.document.getElementById("pitch").innerHTML = parseInt(pitch);
            // w.document.getElementById("roll").innerHTML = parseInt(roll);
 
+           e.currentTarget=canvasPR;
+           // Why can't id and value be attached to canvasPR and made available to the event listener in main.js?
+           e.currentTarget.id=canvasPR.data.paramioID;
+           e.currentTarget.value={};
+           e.currentTarget.value.y=canvasPR.value.y;
+           e.currentTarget.value.x=canvasPR.value.x;
 
 
             canvasPR.fire(e); // uses eventuality funcitonality

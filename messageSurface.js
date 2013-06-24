@@ -7,7 +7,7 @@ var express = require("express")
 
 var k_portnum = 8082;
 
-console.log("hey myserver is starting with command line arguments:");
+console.log("messageServer is starting with command line arguments:");
 process.argv.forEach(function (val, index, array) {
   console.log(index + ': ' + val);
 });
@@ -44,7 +44,7 @@ app.get("/surfaceList",function(req, res){
         for(i=0;i<flist.length;i++){
           // clean list so paths are relative to client directory
           flist[i]=flist[i].replace(m_useRoot, "");
-          console.log("results are" + flist);
+          //console.log("results are" + flist);
         }
         res.send({"surfaces": flist});
     });
@@ -55,7 +55,7 @@ app.get("/surfaceList",function(req, res){
 // Generic function that recursivley searches a directory for files
 // return: list of full pathnames
 var getGuiList = function(dir, done) {
-  console.log("walking the walk");
+  //console.log("walking the walk");
   var results = [];
   fs.readdir(dir, function(err, list) {
     if (err) return done(err);
@@ -82,9 +82,9 @@ var getGuiList = function(dir, done) {
 // Match a post request for data from the client and return requested json data
 app.post("/savesurface",function(req, res){
     //var mdata = JSON.parse(req);
-    console.log("whoo hoo got a get save request with name: " + req.body.name);
-    console.log("whoo hoo got a get save with data: " + req.body.data);
-    console.log("PARSED data is  " + JSON.parse(req.body.data));
+    console.log("saving data to: " + req.body.name);
+    //console.log("with data: " + req.body.data);
+    //console.log("PARSED data is  " + JSON.parse(req.body.data));
 
     //fs.writeFile("./www/surfaces/" + req.body.name + ".json", JSON.stringify(req.body.data, null, 4), function(err) {
     fs.writeFile("./www/surfaces/" + req.body.name + ".json", req.body.data, function(err) {
@@ -96,10 +96,6 @@ app.post("/savesurface",function(req, res){
       res.send({"msg": "OK"});
     }
 }); 
-
-
-
-    
 
 })
 

@@ -8,12 +8,6 @@ This library is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License and GNU Lesser General Public License along with this program.  If not, see <http://www.gnu.org/licenses/>
 ------------------------------------------------------------------------------------------*/
 
-/* This application does simple "event chat". Here, events are mouse clicks on a canvas. 
-	we register for the following messages:
-		init - sent by the server after the client connects. Data returned is an id that the server and other clients will use to recognizes messages from this client.
-		mouseClick - sent when another chatroom member generates a mouse click. Data is x, y of their mouse position on their canvas.
-*/
-
 
 require.config({
 	paths: {
@@ -34,16 +28,16 @@ require.config({
 });
 
 require(
-	["require", "utils", "jsaSurfaceUtils", "canvasSlider", "jsaNStateButton", "jsaPushButton", "xySlider", "canvasPitchRoll", "guiElmtData", "io_messageMap", "jquery-ui", "jquery-tools"],
+	["require", "touch2Mouse", "utils", "jsaSurfaceUtils", "canvasSlider", "jsaNStateButton", "jsaPushButton", "xySlider", "canvasPitchRoll", "guiElmtData", "io_messageMap", "jquery-ui", "jquery-tools"],
 
-	function (require, utils, surfaceUtils, canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, guiElmtData, messageMap) {
+	function (require, touch2Mouse, utils, surfaceUtils, canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, guiElmtData, messageMap) {
 
 		myID=0;
 		var g_locX, g_locY;// position to put next new GUI elements
 		var g_EditMode=true; //boolean
 		var m_currentGuiTarget; // keeps track of where the mouse went down
 
-		var g_clientAddress = "000.0.0.0";
+		var g_clientAddress = "192.168.1.142";
 		var g_clientPort="0000"; // for sending OSC messages to 
 
 		var interfaceType=["nStateButton", "pushButton", "vslider", "hslider", "xyslider", "prslider", "none"];
@@ -86,6 +80,7 @@ require(
 		}
 
 
+
 		function makegui(guidata){
 			var gui;
 
@@ -112,7 +107,7 @@ require(
 			switch(otype){
 				case 'nStateButton':
 					// the ui_elmt will be the firstChild of the div
-					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt nStateButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px;\" />";
+					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt nStateButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px; -webkit-appearance:button; background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#999999));\" />";
 					$('#app').append(newdiv);
 
 					//gui=window.document.getElementById(id);
@@ -123,7 +118,7 @@ require(
 
 				case 'pushButton':
 					// the ui_elmt will be the firstChild of the div
-					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt pushButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px; box-shadow: 5px 5px 10px #FFFFFF;\" />";
+					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt pushButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px;  box-shadow: 5px 5px 10px #FFFFFF; -webkit-appearance:button; background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#999999));\" />";
 					$('#app').append(newdiv);
 
 					//gui=window.document.getElementById(id);
@@ -167,6 +162,7 @@ require(
 					$('#app').append(newdiv);
 
 					gui = prSlider(window,id);
+					gui.on('deviceorientation', myPRfunc);
 					gui.setColor(ocolor);
 					break;
 
@@ -183,7 +179,7 @@ require(
 					stop: function( event, ui ) {
 						event.target.firstChild.data.position.width=(100*ui.size.width/window.innerWidth).toFixed(2) + "%";
 						event.target.firstChild.data.position.height=(100*ui.size.height/window.innerHeight).toFixed(2) + "%";
-						makegui(event.target.firstChild.data);
+						//makegui(event.target.firstChild.data); //bbbbb
 
 					}
 				})
@@ -191,7 +187,7 @@ require(
 					stop: function( event, ui ) {
 						event.target.firstChild.data.position.x=(100*ui.position.left/window.innerWidth).toFixed(2) + "%";
 						event.target.firstChild.data.position.y=(100*ui.position.top/window.innerHeight).toFixed(2) + "%";
-						makegui(event.target.firstChild.data);
+						//makegui(event.target.firstChild.data);  //bbbbbF
 					}
 				});
 
@@ -213,8 +209,9 @@ require(
 
 
 		$('.editmode_checkbox').checked=true;
-		$(".ui_elmt").css("-webkit-user-select", "none"); // stops that ugly highlighted selection 
-		$(".elmtdiv").css("-webkit-user-select", "none"); // stops that ugly highlighted selection 
+		document.addEventListener('click', editModeClick, false);
+//		$(".ui_elmt").css("-webkit-user-select", "none"); // stops that ugly highlighted selection 
+//		$(".elmtdiv").css("-webkit-user-select", "none"); // stops that ugly highlighted selection 
 
 
 		function myButtonfunc(e){
@@ -247,6 +244,11 @@ require(
 		}
 
 
+		function myPRfunc(e){
+			console.log("pitch and roll!");
+			//messageMap.send([String(e.currentTarget.id), e.currentTarget.value.x, e.currentTarget.value.y]);
+			messageMap.send([String(e.currentTarget.id), e.currentTarget.value.x, e.currentTarget.value.y]);
+		}
 
 
 		function mySliderfunc(e){
@@ -319,6 +321,8 @@ require(
 										console.log("host is " + $("input[id=host]").val());
 										console.log("port is " + $("input[id=port]").val());
 
+
+
 										//console.log(" on open, x,y = (" + event.pageX + ", " + event.pageY + ")" );
 										//console.log(" on open, locX,locY = (" + g_locX + ", " + locY + ")" );
 
@@ -356,6 +360,11 @@ require(
 											$( "#mydialog" ).dialog('close');
 										}
 
+										//document.removeEventListener("touchstart", touch2Mouse.touchHandler);
+        								//document.removeEventListener("touchmove", touch2Mouse.touchHandler);
+        								//document.removeEventListener("touchend", touch2Mouse.touchHandler);
+        								//document.removeEventListener("touchcancel", touch2Mouse.touchHandler); 
+
 									},
 									close: function( event, ui ) {
 										var value = $("input[name=RadioGroup1]:checked").val();
@@ -375,7 +384,7 @@ require(
 												{
 													"interfaceType": interfaceType[value],
 													"eventType": eventType[value],
-													"paramioID"  :  interfaceType[value] + "/"+utils.makeid(5),
+													"paramioID"  :  "/" + interfaceType[value] + "/"+utils.makeid(5),
 													//"message": {"buttonDown": 1, "buttonUp": 0},
 													"position": {"x": (100*g_locX/window.innerWidth).toFixed(2) + "%" , "y": (100*g_locY/window.innerHeight).toFixed(2) + "%"},
 													"orientation": (interfaceType[value] === "vslider") ? "v" : "h" , // orientation is ignored in makegui if not a slider type
@@ -384,6 +393,14 @@ require(
 											);
 										}
 										surfaceSelectorElem.removeEventListener("change");
+
+
+										//document.addEventListener("touchstart", touch2Mouse.touchHandler, true);
+        								//document.addEventListener("touchmove", touch2Mouse.touchHandler, true);
+        								//document.addEventListener("touchend", touch2Mouse.touchHandler, true);
+        								//document.addEventListener("touchcancel", touch2Mouse.touchHandler, true); 
+
+
 									}
 								});
 
@@ -416,6 +433,10 @@ require(
 											}
 										);
 
+										//document.removeEventListener("touchstart", touch2Mouse.touchHandler);
+        								//document.removeEventListener("touchmove", touch2Mouse.touchHandler);
+        								//document.removeEventListener("touchend", touch2Mouse.touchHandler);
+        								//document.removeEventListener("touchcancel", touch2Mouse.touchHandler); 
 
 									},
 									close: function( event, ui ) {
@@ -431,11 +452,56 @@ require(
 											} else{
 												that.elmt.data[attr] = $("#" + attr, that).val();
 											}
+											// now change the dome element attributes
+											if (attr==="paramioID") {
+												that.elmt.id=$("#" + attr, that).val();
+											}
+											if (attr==="color") {
+												that.elmt.style.borderColor=$("#" + attr, that).val();
+											}
+											if (attr==="x") {
+												console.log("changing left to " + $("#" + attr, that).val());
+												that.elmt.parentNode.style.left=$("#" + attr, that).val();
+											}
+											if (attr==="y") {
+												console.log("changing left to " + $("#" + attr, that).val());
+												that.elmt.parentNode.style.top=$("#" + attr, that).val();
+											}
+											
+											if (attr==="height") {
+												that.elmt.parentNode.style.height=$("#" + attr, that).val();
+											}
+											if (attr==="width") {
+												that.elmt.parentNode.style.width=$("#" + attr, that).val();
+											}
+											
+
+											/*
+												console.log("paramioID is "+ $("#" + attr, that).val());
+												var foo = document.getElementById($("#" + attr, that).val());
+												if (foo === that.elmt) console.log("foo === that.elmt");
+												console.log("foo is " + foo);
+												console.log("foo.id is " + foo.id);
+												foo.id=2332233;
+												var bar = document.getElementById(2332233);
+												console.log("bar is " + bar);
+												console.log("bar.style is " + bar.style);
+												*/
+											//document.getElementById(id + 'div');
+												//newdiv.setAttribute("id", id + "div");/
 										});
 
-										makegui(that.elmt.data);
+										//makegui(that.elmt.data);//bbbbbb
+
 										//console.log("radio button value is " + value);
 										//console.log(" on close, locX,locY = (" + locX + ", " + locY + ")" );
+
+
+										//document.addEventListener("touchstart", touch2Mouse.touchHandler, true);
+        								//document.addEventListener("touchmove", touch2Mouse.touchHandler, true);
+        								//document.addEventListener("touchend", touch2Mouse.touchHandler, true);
+        								//document.addEventListener("touchcancel", touch2Mouse.touchHandler, true); 
+
 									}
 		};
 
@@ -450,6 +516,8 @@ require(
 		$(document).bind("contextmenu", function(event) {
 			if (event.ctrlKey === true) return; // enables normal context menu
 			event.preventDefault();	// prevent context menu
+
+			console.log("contextmenu");
 
 			//console.log("context menue target = " + event.target + ", child.data = " + event.target.firstChild.data);
 			//console.log("event.target.tagName = " + event.target.tagName);
@@ -468,6 +536,7 @@ require(
 			console.log( ' ui_elmt clicked!', $( this ).text() );
 		});
 
+		
 
 
 		/* Don't need to do anything at the time the button is checked ...
@@ -482,7 +551,7 @@ require(
             var check = $(this).attr('checked');
             console.log("click change : " + name + " to " + check);
 
-            g_EditMode=check; // so newly creted elements can be set pro
+            g_EditMode=check; // so newly created elements can be set 
 
             // if EditMode, allow clicks on ui_elmts, otherwise let the clicks fall to the parent div for resizing and dragging
             if (check === true){
@@ -492,23 +561,36 @@ require(
 					stop: function( event, ui ) {
 						event.target.firstChild.data.position.width=(100*ui.size.width/window.innerWidth).toFixed(2) + "%";
 						event.target.firstChild.data.position.height=(100*ui.size.height/window.innerHeight).toFixed(2) + "%";
-						makegui(event.target.firstChild.data);
+						//makegui(event.target.firstChild.data); //bbbbbb
 					}
 				})
 				.draggable({
 					stop: function( event, ui ) {
 						event.target.firstChild.data.position.x=(100*ui.position.left/window.innerWidth).toFixed(2) + "%";
 						event.target.firstChild.data.position.y=(100*ui.position.top/window.innerHeight).toFixed(2) + "%";
-						makegui(event.target.firstChild.data);
+						// makegui(event.target.firstChild.data); //bbbbbb
 						console.log("drag pos: " + ui.position.left + ", " + ui.position.top );
 					}
 				});
+
+				document.addEventListener('click', editModeClick, false);
             }
             else{
 				$(".ui_elmt").css("pointer-events", "auto");
 				$( '.elmtdiv' , window.document).resizable('destroy').draggable('destroy');
+				removeEventListener('click', editModeClick);
             }
         });
+
+		
+		function editModeClick(event){
+			if(event.target.tagName === "BODY"){
+				console.log("editModeClick");
+				g_locX=event.pageX;
+				g_locY=event.pageY;
+				$( "#mydialog" ).dialog( "open" );
+			} else editGuiElmt(event.target.firstChild);
+		}
 
 		function editGuiElmt(ge){
 
@@ -526,6 +608,11 @@ require(
 		}
 
 		function setEditable(val){}
+
+		document.addEventListener("touchstart", touch2Mouse.touchHandler, true);
+        document.addEventListener("touchmove", touch2Mouse.touchHandler, true);
+        document.addEventListener("touchend", touch2Mouse.touchHandler, true);
+        document.addEventListener("touchcancel", touch2Mouse.touchHandler, true); 
 	}
 );
 

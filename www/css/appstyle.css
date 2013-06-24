@@ -2,11 +2,16 @@ body
 {
 	background-color:black;
 	background-repeat: no-repeat;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
+
 }
 h3 {color:white;
 
 	-webkit-user-select: none;
 	-moz-user-select: none;
+	user-select: none;
 
 	text-align: center
 }
@@ -52,12 +57,18 @@ color:white;
 
 
 elmtdiv {
-
 	-webkit-user-select: none;
 	-moz-user-select: none;
+	user-select: none;
 
 	border:2px solid;
 	border-color: blue;	
+}
+
+ui_elmt {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	user-select: none;
 }
 
 .dbox {

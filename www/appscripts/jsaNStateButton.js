@@ -15,7 +15,9 @@ define(
          var myWindow=w;
    		var butt = w.document.getElementById(id);
 
-         var numStates=inumStates;
+         butt.data={};
+         butt.data.numStates=inumStates;
+
          var mousePressed=false;
 
          var m_Color="#FFFFFF";
@@ -29,15 +31,17 @@ define(
          butt.addEventListener("mouseup", onMouseUp, false);
          //butt.addEventListener("mousemove", onMouseMove, false);
 
-         butt.addEventListener("touchstart", touch2Mouse.touchHandler, true);
+        //butt.addEventListener("touchstart", touch2Mouse.touchHandler, true);
          //butt.addEventListener("touchmove", touch2Mouse.touchHandler, true);
-         butt.addEventListener("touchend", touch2Mouse.touchHandler, true);
-         //butt.addEventListener("touchcancel", touch2Mouse.touchHandler, true);    
+        //butt.addEventListener("touchend", touch2Mouse.touchHandler, true);
+         //butt.addEventListener("touchcancel", touch2Mouse.touchHandler, true);   
+
+    
 
          function onMouseDown (e){
-            current_state=(current_state+1) % numStates;
+            current_state=(current_state+1) % butt.data.numStates;
             butt.value=current_state;
-            console.log("Button: on mouse down , state = " + current_state);
+            //alert("Button: on mouse down , state = " + current_state);
             //myWindow.document.body.addEventListener('mouseup', onMouseUp, false);
 
         }
@@ -47,7 +51,7 @@ define(
             if (!mousePressed) return;
             mousePressed=false;
             //canvasSlider.drawButt();
-
+         //alert("Button: on mouse up , state = " + current_state);
             //myWindow.document.body.removeEventListener('mouseup');
          }
 

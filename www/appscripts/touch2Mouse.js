@@ -17,18 +17,36 @@ define(
   function(){
 
     var touch2Mouse={};
+    var time;
+    var time2;
 
     touch2Mouse.touchHandler = function (event) { 
       var touches = event.changedTouches,
           first = touches[0],
-          type = "";
+          type = "",
+          clickP=false;
+
+          console.log("event target " + event.currentTarget);
+
            switch(event.type)
-      {
-          case "touchstart": type = "mousedown"; break;
-          case "touchmove":  type="mousemove"; break;        
-          case "touchend":   type="mouseup"; break;
-          default: return;
-      }
+            {
+                case "touchstart": 
+                  type = "mousedown";  
+                  time= new Date( ).getTime();
+                  //alert("touchstart at time " + time);
+                  break;
+                case "touchmove":  type="mousemove"; break;        
+                case "touchend": 
+                  type="mouseup";
+
+                  time2= new Date( ).getTime();
+                  if ((time2-time) < 200) {
+                   clickP=true;
+                   //alert("click with time = " + time2 + " - " + time + " = " +  (time2-time));
+                  } 
+                  break;
+                default: return;
+            }
 
                //initMouseEvent(type, canBubble, cancelable, view, clickCount, 
       //           screenX, screenY, clientX, clientY, ctrlKey, 
@@ -41,7 +59,23 @@ define(
                                 false, false, false, 0, null); // second to last arg is "left"
                                                                       
       first.target.dispatchEvent(simulatedEvent);
-      event.preventDefault();
+
+      if (clickP===true){
+        simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent("click", true, true, window, 1, 
+                                  first.screenX, first.screenY, 
+                                  first.clientX, first.clientY, false, 
+                                  false, false, false, 0, null); // second to last arg is "left"
+                                                                        
+        first.target.dispatchEvent(simulatedEvent);
+
+      }
+
+
+      if (!(event.target.type==="text")){ 
+        event.preventDefault();
+      } // else let the event bubble so that the text box can get the focus
+
     }
 
 

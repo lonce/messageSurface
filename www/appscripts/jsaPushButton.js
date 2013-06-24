@@ -25,14 +25,12 @@ define(
 
 
          butt.addEventListener("mousedown", onMouseDown, false);
- 
          butt.addEventListener("touchstart", touch2Mouse.touchHandler, false);
          //butt.addEventListener("touchmove", touch2Mouse.touchHandler, true);
          //butt.addEventListener("touchend", touch2Mouse.touchHandler, true);
          //butt.addEventListener("touchcancel", touch2Mouse.touchHandler, true);    
 
          function onMouseDown (e){
-            console.log("on MouseDown");
             mousePressed=true;
             butt.value=1;
             butt.addEventListener("mouseup", onMouseUp, true);
@@ -42,7 +40,6 @@ define(
 
 
          function onMouseUp(e){
-            console.log("on MouseUp");
             if (!mousePressed) return;
             butt.value=0;
             mousePressed=false;

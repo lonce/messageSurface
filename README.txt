@@ -1,14 +1,18 @@
 
-oscSurface is a "DIY" Open Sound Control surface maker in the spirit of
+messageSurface is a "DIY" controller interface surface maker in the spirit of
 Charlie Robert's "Control" or TouchOSC.
 
-The difference is that oscSurface is a "bapp" (locally served browser app) which means you
-create your srufaces in a browser window, and open them (on other devices) by navigating to a web page.
+The difference is that messageSurface is a  browser app ("bapp") which means you
+create your srufaces in a browser window, and open them (possibly on other devices) by navigating to a web page.
 No native code, no "synching" or downloading surface from PC to device.
+
+Also, it generates osc-like json messages that can be used for anything. 
+If you want to actually use the interface to control, say, Max/Msp with OSC, check out the json2osc project. 
+messageSurface and json2osc play nicley together.
 
 ---------------------------------------------------------------------
 To RUN this code, you first run the server:
- >> node myserver port#
+ >> node messageSurface port#
 Then point your -webkit- (e.g. Chrome, Safari) browser to localhost:port#
 
 ----------------------------------------------------------------------
@@ -21,6 +25,11 @@ Currently, there are 5 GUI elements you can use to create oscSurface:
    5) pitch/roll 
 
 Surfaces can be saved and loaded and are just human-readable JSON files on disk.
+
+-----------------------------------------------------------------------
+
+If you want to actually use the interface to control, say, Max/Msp,
+check out the json2osc project. 
 
 -----------------------------------------------------------------------
 NOTES

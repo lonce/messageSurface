@@ -17,7 +17,7 @@ define(
 				"interfaceType": iobj.interfaceType || "nStateButton",
 				"eventType": iobj.eventType || "nState",
 				//"paramioID"  : iobj.paramioID ||  (iobj.interfaceType && ("\\" + iobj.interfaceType + "\\"+utils.makeid(4))),
-				"paramioID"  : iobj.paramioID ||  (iobj.interfaceType && ( iobj.interfaceType + "/"+utils.makeid(4))),
+				"paramioID"  : iobj.paramioID ||  (iobj.interfaceType && ( "/" + iobj.interfaceType + "/"+utils.makeid(4))),
 				"message": iobj.message ||  ["mousedown"],
 				"position": {
 						"x": iobj.position && iobj.position.x || "5%", 
