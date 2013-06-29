@@ -9,8 +9,8 @@ You should have received a copy of the GNU General Public License and GNU Lesser
 ------------------------------------------------------------------------------------------*/
 
 define(
-   ["utils", "touch2Mouse"],
-   function (utils, touch2Mouse) {
+   ["utils"],
+   function (utils) {
       return function (w,id, iorient){
          var myWindow=w;
          var canvasPR = w.document.getElementById(id);

@@ -66,8 +66,12 @@ define(
 			sendJSONmsg: sendJSONmsg,
 			configure: function(clientAddress, clientPort){
 
-				// Set up the socket as specified
-				ws = new WebSocket('ws://' + clientAddress + ":" + clientPort);
+				if (clientAddress === "/") {
+					ws = new WebSocket("/");
+				} else {
+					// Set up the socket as specified
+					ws = new WebSocket('ws://' + clientAddress + ":" + clientPort);
+				}
 				ws.addEventListener('message', function(e){receiveJSONmsg.call(ws, e.data)});
 
 			}

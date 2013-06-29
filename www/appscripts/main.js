@@ -28,9 +28,9 @@ require.config({
 });
 
 require(
-	["require", "touch2Mouse", "utils", "jsaSurfaceUtils", "canvasSlider", "jsaNStateButton", "jsaPushButton", "xySlider", "canvasPitchRoll", "guiElmtData", "io_messageMap", "jquery-ui", "jquery-tools"],
+	["require", "touch2Mouse", "utils", "jsaSurfaceUtils", "canvasSlider", "jsaNStateButton", "jsaPushButton", "xySlider", "canvasPitchRoll", "guiElmtData", "renderSurface",  "jquery-ui", "jquery-tools"],
 
-	function (require, touch2Mouse, utils, surfaceUtils, canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, guiElmtData, messageMap) {
+	function (require, touch2Mouse, utils, surfaceUtils, canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, guiElmtData, surface) {
 
 		myID=0;
 		var g_locX, g_locY;// position to put next new GUI elements
@@ -41,163 +41,16 @@ require(
 		var g_clientPort="0000"; // for sending OSC messages to 
 
 		var interfaceType=["nStateButton", "pushButton", "vslider", "hslider", "xyslider", "prslider", "none"];
-		var eventType=["nState",        "nState",     "range",   "range",   "range2D",  "range2D", "none"];
+		var eventType=    ["nState",        "nState",     "range",   "range",   "range2D",  "range2D", "none"];
 
-		var inputData={};
-		var surfaceData = {  // should probably have a factory for making these
-			"interface": []
-		};  // data for currently active gui elements
-
-
-		function removeElement(id){
-			// First remove Div and Gui element from the surface
-			var olddiv = document.getElementById(id + 'div');
-			var myapp = document.getElementById(app);
-			if (olddiv  !== null){
-				console.log("removing div element");
-				olddiv.parentNode.removeChild(olddiv);
-			}
-			// Next remove the data for the element from the list
-			surfaceData.interface.removeObjectWithProperty("paramioID", id);
-		}
-
-		function removeAllElements(){
-			for(i=0;i<surfaceData.length;i++){
-				removeElement(surfaceData.interface[i].paramioID);
-			}
-		}
 
 		// get a json file defining an interface set and make a GUI out of it
 		function read_json(fname) {
 			console.log("in read_json");
 			$.getJSON(fname, function(data) {
 				console.log("returned from read_json to execute function");
-				inputData=data;
-				for(elmt=0;elmt<inputData.interface.length;elmt++){
-					makegui(inputData.interface[elmt]);
-				}
-			});//.fail(function err(){console.log("something went wrong in read_json")});			
-		}
-
-
-
-		function makegui(guidata){
-			var gui;
-
-			var otype, id, message, posx, posy, posw, posh, ocolor;
-			otype=guidata.interfaceType; // required
-			id=guidata.paramioID;
-			posx=guidata.position.x;
-			posy=guidata.position.y;
-			posw=guidata.position.width;
-			posh=guidata.position.height;
-			orient=guidata.orientation;
-			ocolor=guidata.color;
-
-
-			removeElement(id);
-
-			//a seperate div for each controller
-			var newdiv = document.createElement("div");
-			newdiv.setAttribute("class", "elmtdiv");
-			newdiv.setAttribute("id", id + "div");////////////////////////////////
-			newdiv.setAttribute("style", "position: absolute;    left: " + posx + "; top: " + posy + "; width: " + posw + "; height: "+posh);
-
-			// now create the element itself, stash it in its personal div
-			switch(otype){
-				case 'nStateButton':
-					// the ui_elmt will be the firstChild of the div
-					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt nStateButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px; -webkit-appearance:button; background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#999999));\" />";
-					$('#app').append(newdiv);
-
-					//gui=window.document.getElementById(id);
-					gui = jsaNStateButton(window,id, guidata.numStates);
-					gui.addEventListener('mousedown', function (e) {myButtonfunc(e);});
-
-					break;
-
-				case 'pushButton':
-					// the ui_elmt will be the firstChild of the div
-					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt pushButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px;  box-shadow: 5px 5px 10px #FFFFFF; background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#999999));\" />";
-					$('#app').append(newdiv);
-
-					//gui=window.document.getElementById(id);
-					gui = jsaPushButton(window,id);
-					gui.on('mousedown', function (e) {myPushButton(e, $(this));}, false);
-					//gui.on('mousedown', function (e) {myButtonfunc(e);},false);
-
-					//gui.on('mousedown', function (e) {$(this).css( 'background', '-webkit-gradient(linear, left top, right top, color-stop(0%,rgba(45,20,150,.9)), color-stop(56%,rgba(54,22,200,.9)), color-stop(100%,rgba(61,23,255,.9))');}, false);
-
-
-					gui.on('mouseup', function (e) {myPushButton(e, $(this));},false);
-
-					break;
-
-				case 'slider':
-				case 'vslider':
-				case 'hslider':
-					newdiv.innerHTML = "<canvas class=\"ui_elmt slider\" id = \"" + id + "\"  style = \" border:1px solid " + ocolor + "; left:  0%; top: 0%; width: 100%;  height:100%;\" />";
-					$('#app').append(newdiv);
-
-					gui = canvasSlider(window,id, orient);
-					gui.setColor(ocolor);
-					gui.on('mousedown', mySliderfunc);
-					gui.on('mousemove', mySliderfunc);
-					gui.on('mouseup', mySliderfunc);
-					break;
-
-				case 'xyslider':
-					newdiv.innerHTML = "<canvas class=\"ui_elmt xyslider\" id = \"" + id + "\"  style = \" border:1px solid " + ocolor + "; left:  0%; top: 0%; width: 100%;  height:100%;\" />";
-					$('#app').append(newdiv);
-
-					gui = xySlider(window,id);
-					gui.setColor(ocolor);
-					gui.on('mousedown', myXYSliderfunc);
-					gui.on('mousemove', myXYSliderfunc);
-					gui.on('mouseup', myXYSliderfunc);
-					break;
-
-				case 'prslider':
-					newdiv.innerHTML = "<canvas class=\"ui_elmt prslider\" id = \"" + id + "\"  style = \" border:1px solid " + ocolor + "; left:  0%; top: 0%; width: 100%;  height:100%;\" />";
-					$('#app').append(newdiv);
-
-					gui = prSlider(window,id);
-					gui.on('deviceorientation', myPRfunc);
-					gui.setColor(ocolor);
-					break;
-
-				default:
-			}
-			gui.data=guidata;
-			// add element to the current surface
-			surfaceData.interface.push(guidata);
-
-			if (g_EditMode===true){
-				$(".ui_elmt").css("pointer-events", "none");
-				$( '.elmtdiv' , window.document)
-				.resizable({
-					stop: function( event, ui ) {
-						event.target.firstChild.data.position.width=(100*ui.size.width/window.innerWidth).toFixed(2) + "%";
-						event.target.firstChild.data.position.height=(100*ui.size.height/window.innerHeight).toFixed(2) + "%";
-						//makegui(event.target.firstChild.data); //bbbbb
-
-					}
-				})
-				.draggable({
-					stop: function( event, ui ) {
-						event.target.firstChild.data.position.x=(100*ui.position.left/window.innerWidth).toFixed(2) + "%";
-						event.target.firstChild.data.position.y=(100*ui.position.top/window.innerHeight).toFixed(2) + "%";
-						//makegui(event.target.firstChild.data);  //bbbbbF
-					}
-				});
-
-        		//console.log("ui = "  + '#'+id);
-        		//console.log("div = " + '#'+id+'div');
-        		// ARGH. Why can't I set this on individul elements??
-				//$('#'+id).css("pointer-events", "none");
-				//$('#'+id+'div').resizable().draggable();
-			}
-			//$( '.elmtdiv'  , window.document).resizable().draggable();
+				surface.renderSurface(data);
+			});			
 		}
 
 
@@ -209,73 +62,8 @@ require(
 
 
 		$('.editmode_checkbox').checked=true;
+
 		document.addEventListener('click', editModeClick, false);
-//		$(".ui_elmt").css("-webkit-user-select", "none"); // stops that ugly highlighted selection 
-//		$(".elmtdiv").css("-webkit-user-select", "none"); // stops that ugly highlighted selection 
-
-
-		function myButtonfunc(e){
-			console.log("myButtonfunc");
-			e.preventDefault();
-			if (e.button===2){
-				editGuiElmt(e.target);
-			}
-			if (e.type==="mousedown"){
-				m_currentGuiTarget = e.currentTarget;
-			}
-			messageMap.send([String(m_currentGuiTarget.id), m_currentGuiTarget.value]);
-		}
-
-		function myPushButton(e, qbutt){
-			console.log("myButtonfunc");
-			e.preventDefault();
-			if (e.button===2){
-				editGuiElmt(e.target);
-			}
-			if (e.type==="mousedown"){
-				m_currentGuiTarget = e.currentTarget;
-	 			//qbutt.css('background', '#009999');  
-				qbutt.css('box-shadow', '');//-webkit-gradient(linear, left top, right top, color-stop(0%,rgba(45,20,150,.9)), color-stop(56%,rgba(54,22,200,.9)), color-stop(100%,rgba(61,23,255,.9))');
-				//qbutt.css( 'background', '-webkit-gradient(linear, left top, right top, color-stop(0%,rgba(45,20,150,.9)), color-stop(56%,rgba(54,22,200,.9)), color-stop(100%,rgba(61,23,255,.9))');
-			} else{
-				qbutt.css('box-shadow', '5px 5px 10px #FFFFFF');
-			}
-			messageMap.send([String(m_currentGuiTarget.id), m_currentGuiTarget.value]);
-		}
-
-
-		function myPRfunc(e){
-			console.log("pitch and roll!");
-			//messageMap.send([String(e.currentTarget.id), e.currentTarget.value.x, e.currentTarget.value.y]);
-			messageMap.send([String(e.currentTarget.id), e.currentTarget.value.x, e.currentTarget.value.y]);
-		}
-
-
-		function mySliderfunc(e){
-			if (e.button===2){
-				editGuiElmt(e.target);
-			}
-			if (e.type==="mousedown"){
-				m_currentGuiTarget = e.currentTarget;
-			}
-			messageMap.send([String(m_currentGuiTarget.id), m_currentGuiTarget.value]);
-		}
-
-		function myXYSliderfunc(e){
-			if (e.button===2){
-				editGuiElmt(e.target);
-			}
-
-			if (e.type==="mousedown"){
-				m_currentGuiTarget = e.currentTarget;
-			}
-			//This is useful!
-			//for (var name in e)
-			//	console.log(name + " is " + e[name] );	
-
-			messageMap.send([String(m_currentGuiTarget.id), m_currentGuiTarget.value.x, m_currentGuiTarget.value.y]);
-		}
-
 
 		//--------------------------------------------------------------------------------------------------
 		//http://jquerytools.org/demos/overlay/modal-dialog.html
@@ -299,7 +87,7 @@ require(
 			// get user input
 			var input = $("input", this).val();
 
-			$.post("/savesurface", {"name": input, "data": JSON.stringify(surfaceData, null, 4)}, function(returnedData) {
+			$.post("/savesurface", {"name": input, "data": JSON.stringify(surface.getSurfaceData(), null, 4)}, function(returnedData) {
 				console.log("post was successful");
 				// This callback is executed if the post was successful     
 				});
@@ -320,8 +108,6 @@ require(
 										$("input[id=port]").val(g_clientPort);
 										console.log("host is " + $("input[id=host]").val());
 										console.log("port is " + $("input[id=port]").val());
-
-
 
 										//console.log(" on open, x,y = (" + event.pageX + ", " + event.pageY + ")" );
 										//console.log(" on open, locX,locY = (" + g_locX + ", " + locY + ")" );
@@ -353,17 +139,12 @@ require(
 
 
 										function surfaceChoice() {
-											removeAllElements();
+											surface.removeAllElements();
 											if ((surfaceSelectorElem.selectedIndex-1) >= 0){
 												read_json(surfaceList[surfaceSelectorElem.selectedIndex-1].fullPath); // -1 because we add a blank element at the beginning of the list
 											} // else the blank element was selected (no selection);
 											$( "#mydialog" ).dialog('close');
 										}
-
-										//document.removeEventListener("touchstart", touch2Mouse.touchHandler);
-        								//document.removeEventListener("touchmove", touch2Mouse.touchHandler);
-        								//document.removeEventListener("touchend", touch2Mouse.touchHandler);
-        								//document.removeEventListener("touchcancel", touch2Mouse.touchHandler); 
 
 									},
 									close: function( event, ui ) {
@@ -375,31 +156,25 @@ require(
 										if (($("input[id=host]").val() != g_clientAddress) || ($("input[id=port]").val() != g_clientPort)) {
 											g_clientAddress = $("input[id=host]").val();
 											g_clientPort = $("input[id=port]").val();
-											messageMap.configure(g_clientAddress, g_clientPort);
+											surface.messageMap.configure(g_clientAddress, g_clientPort);
 										}
 
 										if (interfaceType[value] && (interfaceType[value] != "none")){
 											console.log("****closing dialog, will make a gui elmt of type  " + interfaceType[value]);
-											makegui(guiElmtData(
+											surface.renderElement(guiElmtData(
 												{
 													"interfaceType": interfaceType[value],
 													"eventType": eventType[value],
 													"paramioID"  :  "/" + interfaceType[value] + "/"+utils.makeid(5),
 													//"message": {"buttonDown": 1, "buttonUp": 0},
 													"position": {"x": (100*g_locX/window.innerWidth).toFixed(2) + "%" , "y": (100*g_locY/window.innerHeight).toFixed(2) + "%"},
-													"orientation": (interfaceType[value] === "vslider") ? "v" : "h" , // orientation is ignored in makegui if not a slider type
+													"orientation": (interfaceType[value] === "vslider") ? "v" : "h" , // orientation is ignored in surface.renderElement if not a slider type
 													"color": "green"
 												})
 											);
+											setEditable(g_EditMode);
 										}
 										surfaceSelectorElem.removeEventListener("change");
-
-
-										//document.addEventListener("touchstart", touch2Mouse.touchHandler, true);
-        								//document.addEventListener("touchmove", touch2Mouse.touchHandler, true);
-        								//document.addEventListener("touchend", touch2Mouse.touchHandler, true);
-        								//document.addEventListener("touchcancel", touch2Mouse.touchHandler, true); 
-
 
 									}
 								});
@@ -427,17 +202,11 @@ require(
 										$("#deleteElement", this).click(function(e){
 												console.log("delete button press");
 												console.log("paramioID of element is " + that.elmt.data.paramioID);
-												removeElement(that.elmt.data.paramioID);
+												surface.removeElement(that.elmt.data.paramioID);
 												that.elmt="deleted"; // tell the close funciton not to make a new one!
 												$(that).dialog('close');
 											}
 										);
-
-										//document.removeEventListener("touchstart", touch2Mouse.touchHandler);
-        								//document.removeEventListener("touchmove", touch2Mouse.touchHandler);
-        								//document.removeEventListener("touchend", touch2Mouse.touchHandler);
-        								//document.removeEventListener("touchcancel", touch2Mouse.touchHandler); 
-
 									},
 									close: function( event, ui ) {
 										var attr;
@@ -474,33 +243,7 @@ require(
 											if (attr==="width") {
 												that.elmt.parentNode.style.width=$("#" + attr, that).val();
 											}
-											
-
-											/*
-												console.log("paramioID is "+ $("#" + attr, that).val());
-												var foo = document.getElementById($("#" + attr, that).val());
-												if (foo === that.elmt) console.log("foo === that.elmt");
-												console.log("foo is " + foo);
-												console.log("foo.id is " + foo.id);
-												foo.id=2332233;
-												var bar = document.getElementById(2332233);
-												console.log("bar is " + bar);
-												console.log("bar.style is " + bar.style);
-												*/
-											//document.getElementById(id + 'div');
-												//newdiv.setAttribute("id", id + "div");/
 										});
-
-										//makegui(that.elmt.data);//bbbbbb
-
-										//console.log("radio button value is " + value);
-										//console.log(" on close, locX,locY = (" + locX + ", " + locY + ")" );
-
-
-										//document.addEventListener("touchstart", touch2Mouse.touchHandler, true);
-        								//document.addEventListener("touchmove", touch2Mouse.touchHandler, true);
-        								//document.addEventListener("touchend", touch2Mouse.touchHandler, true);
-        								//document.addEventListener("touchcancel", touch2Mouse.touchHandler, true); 
 
 									}
 		};
@@ -519,10 +262,6 @@ require(
 
 			console.log("contextmenu");
 
-			//console.log("context menue target = " + event.target + ", child.data = " + event.target.firstChild.data);
-			//console.log("event.target.tagName = " + event.target.tagName);
-			//console.log("class = " + event.target.firstChild.getAttribute("class"));
-
 			if(event.target.tagName === "BODY"){
 				g_locX=event.pageX;
 				g_locY=event.pageY;
@@ -535,8 +274,6 @@ require(
 			event.preventDefault();
 			console.log( ' ui_elmt clicked!', $( this ).text() );
 		});
-
-		
 
 
 		/* Don't need to do anything at the time the button is checked ...
@@ -555,29 +292,11 @@ require(
 
             // if EditMode, allow clicks on ui_elmts, otherwise let the clicks fall to the parent div for resizing and dragging
             if (check === true){
-				$(".ui_elmt").css("pointer-events", "none");
-				$( '.elmtdiv' , window.document)
-				.resizable({
-					stop: function( event, ui ) {
-						event.target.firstChild.data.position.width=(100*ui.size.width/window.innerWidth).toFixed(2) + "%";
-						event.target.firstChild.data.position.height=(100*ui.size.height/window.innerHeight).toFixed(2) + "%";
-						//makegui(event.target.firstChild.data); //bbbbbb
-					}
-				})
-				.draggable({
-					stop: function( event, ui ) {
-						event.target.firstChild.data.position.x=(100*ui.position.left/window.innerWidth).toFixed(2) + "%";
-						event.target.firstChild.data.position.y=(100*ui.position.top/window.innerHeight).toFixed(2) + "%";
-						// makegui(event.target.firstChild.data); //bbbbbb
-						console.log("drag pos: " + ui.position.left + ", " + ui.position.top );
-					}
-				});
-
+				setEditable(true);
 				document.addEventListener('click', editModeClick, false);
             }
             else{
-				$(".ui_elmt").css("pointer-events", "auto");
-				$( '.elmtdiv' , window.document).resizable('destroy').draggable('destroy');
+            	setEditable(false);
 				removeEventListener('click', editModeClick);
             }
         });
@@ -607,7 +326,32 @@ require(
 			}
 		}
 
-		function setEditable(val){}
+		function setEditable(val){
+
+			if (val===true){
+
+				$(".ui_elmt").css("pointer-events", "none");
+				$( '.elmtdiv' , window.document)
+				.resizable({
+					stop: function( event, ui ) {
+						event.target.firstChild.data.position.width=(100*ui.size.width/window.innerWidth).toFixed(2) + "%";
+						event.target.firstChild.data.position.height=(100*ui.size.height/window.innerHeight).toFixed(2) + "%";
+						//makegui(event.target.firstChild.data); //bbbbb
+					}
+				})
+				.draggable({
+					stop: function( event, ui ) {
+						event.target.firstChild.data.position.x=(100*ui.position.left/window.innerWidth).toFixed(2) + "%";
+						event.target.firstChild.data.position.y=(100*ui.position.top/window.innerHeight).toFixed(2) + "%";
+						//makegui(event.target.firstChild.data);  //bbbbbF
+					}
+				});
+			}
+			else{
+				$(".ui_elmt").css("pointer-events", "auto");
+				$( '.elmtdiv' , window.document).resizable('destroy').draggable('destroy');
+			}
+		}
 
 		document.addEventListener("touchstart", touch2Mouse.touchHandler, true);
         document.addEventListener("touchmove", touch2Mouse.touchHandler, true);
