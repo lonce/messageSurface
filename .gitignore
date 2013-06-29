@@ -3,6 +3,5 @@
 *.lnk
 *.link
 www/jslibs
-www/surfaces/*
 node_modules
 

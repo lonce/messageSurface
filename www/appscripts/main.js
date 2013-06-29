@@ -118,7 +118,7 @@ require(
 
 				case 'pushButton':
 					// the ui_elmt will be the firstChild of the div
-					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt pushButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px;  box-shadow: 5px 5px 10px #FFFFFF; -webkit-appearance:button; background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#999999));\" />";
+					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt pushButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px;  box-shadow: 5px 5px 10px #FFFFFF; background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#999999));\" />";
 					$('#app').append(newdiv);
 
 					//gui=window.document.getElementById(id);
