@@ -156,7 +156,7 @@ require(
 										if (($("input[id=host]").val() != g_clientAddress) || ($("input[id=port]").val() != g_clientPort)) {
 											g_clientAddress = $("input[id=host]").val();
 											g_clientPort = $("input[id=port]").val();
-											surface.messageMap.configure(g_clientAddress, g_clientPort);
+											surface.configure(g_clientAddress, g_clientPort);
 										}
 
 										if (interfaceType[value] && (interfaceType[value] != "none")){
