@@ -1,0 +1,38 @@
+{
+    "interface": [
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/84208",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "37.41%",
+                "y": "23.25%",
+                "width": "20%",
+                "height": "20%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "hslider",
+            "eventType": "range",
+            "paramioID": "/hslider/29477",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "37.77%",
+                "y": "48.90%",
+                "width": "20%",
+                "height": "20%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        }
+    ]
+}
