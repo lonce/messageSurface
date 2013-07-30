@@ -9,10 +9,9 @@ You should have received a copy of the GNU General Public License and GNU Lesser
 ------------------------------------------------------------------------------------------*/
 
 define(
-	[],
-	function () {
-		var ws;  // for communicating with the osc server
-
+	["socketio"],
+	function (io) {
+		var socket;  // for communicating with the osc server
 
 		//List of messages we can handle from the server (and other clients via the server)
 		var callbacks = {};
@@ -22,7 +21,7 @@ define(
 
 		// osc server sends us 'init' as a handshake 
 		registerCallback('init', init);
-		function init(ws, d, s){
+		function init(socket, d, s){
 			console.log("OK - connection established - send config data to initialzing OSC server");
 		}
 
@@ -55,8 +54,10 @@ define(
 
 		// For sending local client events to the server
 		var sendJSONmsg = function (name, data) {
-			if (!ws) console.log("If server was configured to receive, the message sent would be " + name + " with data = " + data);
-			ws && ws.send(JSON.stringify({n: name, d: data}));//, {mask: true});
+			if (socket)
+				socket.send(JSON.stringify({n: name, d: data}));//, {mask: true});
+			else
+				console.log("If server was configured to receive, the message sent would be " + name + " with data = " + data);
 		};
 
 
@@ -67,16 +68,19 @@ define(
 			configure: function(clientAddress, clientPort){
 
 				if (clientAddress === "/") {
-					ws = new WebSocket("/");
+					socket = io.connect("/");
 				} else {
 					// Set up the socket as specified
-					ws = new WebSocket('ws://' + clientAddress + ":" + clientPort);
+					socket = io.connect("http://" + clientAddress + ":" + clientPort);
 				}
-				ws.addEventListener('message', function(e){receiveJSONmsg.call(ws, e.data)});
+				socket.on("message", function (e) {
+					// TODO: Test if this 'e' is working properly
+					// console.log("Received a message:");
+					// console.log(e);
+					receiveJSONmsg.call(socket, e.data);
+				});
 
 			}
 		};
 	}
 );
-
-

@@ -11,6 +11,7 @@ You should have received a copy of the GNU General Public License and GNU Lesser
 
 require.config({
 	paths: {
+		"socketio": "/socket.io/socket.io",
 		"messageSurface": "..",
 		"jquery": "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min",
 		"jquery-ui": "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui",
@@ -18,6 +19,9 @@ require.config({
 	},
 	// Insures that dependencies are completely loaded in the proper order
 	shim: {
+		"socketio": {
+			exports: "io"
+		},
 		"jquery-ui": {
 			deps: ["jquery"]
 		},
