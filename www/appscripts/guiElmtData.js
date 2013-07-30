@@ -9,7 +9,7 @@ You should have received a copy of the GNU General Public License and GNU Lesser
 ------------------------------------------------------------------------------------------*/
 
 define(
-	["utils"],
+	["root/appscripts/utils"],
 	function (utils) {
       return function (iobj){
       	//console.log("making new gui elmet iobj.interfaceType = " + iobj.interfaceType);

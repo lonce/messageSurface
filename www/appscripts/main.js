@@ -11,7 +11,7 @@ You should have received a copy of the GNU General Public License and GNU Lesser
 
 require.config({
 	paths: {
-	//	"jsaSound": ".."
+		"root": "..",
 		"jquery": "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min",
 		"jquery-ui": "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui",
 		"jquery-tools": "http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min"

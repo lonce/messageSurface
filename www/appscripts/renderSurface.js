@@ -1,5 +1,5 @@
 define(
-    ["canvasSlider", "jsaNStateButton", "jsaPushButton", "xySlider", "canvasPitchRoll", "io_messageMap",],
+    ["root/appscripts/canvasSlider", "root/appscripts/jsaNStateButton", "root/appscripts/jsaPushButton", "root/appscripts/xySlider", "root/appscripts/canvasPitchRoll", "root/appscripts/io_messageMap",],
         function(canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, messageMap){
 
         	var surface={};
@@ -17,8 +17,6 @@ define(
 			}
 
 			surface.renderSurface = function(inputData){
-
-
         		for(elmt=0;elmt<inputData.interface.length;elmt++){
 					surface.removeElement(inputData.interface[elmt].paramioID);
 					surface.renderElement(inputData.interface[elmt]);
