@@ -16,7 +16,6 @@ if (process.argv.length < 3){
 }
 k_portnum=process.argv[2];
 
-
 //****************************************************************************
 var m_useRoot="/www";
 app.use(express.static(__dirname + m_useRoot));
@@ -27,12 +26,18 @@ console.log("Connected and listening on port " + k_portnum);
 
 var connectionID = 0;
 
+io.set("log level", 1);
+
 io.sockets.on("connection", function (socket) {
   socket.myID = connectionID++;
   console.log("Got a connection, assigning myID = " + socket.myID);
 
+  // socket.on("message", function (data) {
+  //   console.log("Message received: " + data);
+  // });
+
   socket.on("disconnect", function () {
-    console.log("Socket with myID = " + socket.myID " disconnected!");
+    console.log("Socket with myID = " + socket.myID + " disconnected!");
   });
 });
 
@@ -50,8 +55,6 @@ app.get("/surfaceList",function(req, res){
         res.send({"surfaces": flist});
     });
 })
-
-
 
 // Generic function that recursivley searches a directory for files
 // return: list of full pathnames
@@ -79,29 +82,23 @@ var getGuiList = function(dir, done) {
   });
 };
 
-
 // Match a post request for data from the client and return requested json data
-app.post("/savesurface",function(req, res){
+app.post("/savesurface", function (req, res) {
     //var mdata = JSON.parse(req);
     console.log("saving data to: " + req.body.name);
     //console.log("with data: " + req.body.data);
     //console.log("PARSED data is  " + JSON.parse(req.body.data));
 
     //fs.writeFile("./www/surfaces/" + req.body.name + ".json", JSON.stringify(req.body.data, null, 4), function(err) {
-    fs.writeFile("./www/surfaces/" + req.body.name + ".json", req.body.data, function(err) {
-    if(err) {
-      console.log(err);
-      res.send({"msg": "write failed"});
-    } else {
-      console.log("JSON saved to " + "./www/surfaces/" + req.body.name + ".json");
-      res.send({"msg": "OK"});
-    }
-}); 
-
-})
-
-
-
+    fs.writeFile("./www/surfaces/" + req.body.name + ".json", req.body.data, function (err) {
+      if (err) {
+        console.log(err);
+        res.send({"msg": "write failed"});
+      } else {
+        console.log("JSON saved to " + "./www/surfaces/" + req.body.name + ".json");
+        res.send({"msg": "OK"});
+      }
+    });
+  });
 
 exports.server = server;
-
