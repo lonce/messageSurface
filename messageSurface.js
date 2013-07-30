@@ -1,9 +1,8 @@
-var express = require("express")
-, app = express()
-, server = require('http').createServer(app)
-, WebSocketServer = require('ws').Server
-, wss = new WebSocketServer({server: server})
-, fs = require('fs');
+var express = require("express"),
+    app = express(),
+    server = require('http').createServer(app),
+    io = require("socket.io").listen(server),
+    fs = require('fs');
 
 var k_portnum = 8082;
 
@@ -26,13 +25,15 @@ app.use(express.bodyParser());
 server.listen(process.argv[2] || k_portnum);
 console.log("Connected and listening on port " + k_portnum);
 
-wss.on('connection', function (ws) {
-    ws.id = id++;
-    console.log("got a connection, assigning ID = " + ws.id);
+var connectionID = 0;
 
-    ws.on('close', function() {        
-        console.log(ws.id + " is gone..." );
-    });
+io.sockets.on("connection", function (socket) {
+  socket.myID = connectionID++;
+  console.log("Got a connection, assigning myID = " + socket.myID);
+
+  socket.on("disconnect", function () {
+    console.log("Socket with myID = " + socket.myID " disconnected!");
+  });
 });
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
