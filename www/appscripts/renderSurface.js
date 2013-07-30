@@ -1,5 +1,5 @@
 define(
-    ["root/appscripts/canvasSlider", "root/appscripts/jsaNStateButton", "root/appscripts/jsaPushButton", "root/appscripts/xySlider", "root/appscripts/canvasPitchRoll", "root/appscripts/io_messageMap",],
+    ["messageSurface/appscripts/canvasSlider", "messageSurface/appscripts/jsaNStateButton", "messageSurface/appscripts/jsaPushButton", "messageSurface/appscripts/xySlider", "messageSurface/appscripts/canvasPitchRoll", "messageSurface/appscripts/io_messageMap",],
         function(canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, messageMap){
 
         	var surface={};

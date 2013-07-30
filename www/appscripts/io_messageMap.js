@@ -14,7 +14,7 @@ Could lose the comms code and handle messages here in a different way.
 
 
 define(
-	["root/appscripts/comm", "root/appscripts/utils"],
+	["messageSurface/appscripts/comm", "messageSurface/appscripts/utils"],
 
 	function (comm, utils) {
 		var i;

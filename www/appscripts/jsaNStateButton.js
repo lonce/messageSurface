@@ -9,7 +9,7 @@ You should have received a copy of the GNU General Public License and GNU Lesser
 ------------------------------------------------------------------------------------------*/
 
 define(
-	["root/appscripts/utils", "root/appscripts/touch2Mouse"],
+	["messageSurface/appscripts/utils", "messageSurface/appscripts/touch2Mouse"],
 	function (utils, touch2Mouse) {
       return function (w,id, inumStates){
          var myWindow=w;
