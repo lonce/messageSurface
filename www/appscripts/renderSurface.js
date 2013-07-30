@@ -1,6 +1,6 @@
 define(
-    ["messageSurface/appscripts/canvasSlider", "messageSurface/appscripts/jsaNStateButton", "messageSurface/appscripts/jsaPushButton", "messageSurface/appscripts/xySlider", "messageSurface/appscripts/canvasPitchRoll", "messageSurface/appscripts/io_messageMap",],
-        function(canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, messageMap){
+    ["messageSurface/appscripts/canvasSlider", "messageSurface/appscripts/jsaNStateButton", "messageSurface/appscripts/jsaPushButton", "messageSurface/appscripts/xySlider", "messageSurface/appscripts/canvasPitchRoll", "messageSurface/appscripts/io_messageMap", "messageSurface/appscripts/jsaSurfaceUtils"],
+        function(canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, messageMap, surfaceUtils){
 
         	var surface={};
 
