@@ -32,9 +32,9 @@ require.config({
 });
 
 require(
-	["require", "touch2Mouse", "utils", "jsaSurfaceUtils", "canvasSlider", "jsaNStateButton", "jsaPushButton", "xySlider", "canvasPitchRoll", "guiElmtData", "renderSurface",  "jquery-ui", "jquery-tools"],
+	["require", "touch2Mouse", "utils", "jsaSurfaceUtils", "canvasSlider", "jsaNStateButton", "jsaSceneChangeButton", "jsaPushButton", "xySlider", "canvasPitchRoll", "guiElmtData", "renderSurface",  "jquery-ui", "jquery-tools"],
 
-	function (require, touch2Mouse, utils, surfaceUtils, canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, guiElmtData, surface) {
+	function (require, touch2Mouse, utils, surfaceUtils, canvasSlider, jsaNStateButton, jsaSceneChanageButton, jsaPushButton, xySlider, prSlider, guiElmtData, surface) {
 
 		myID=0;
 		var g_locX, g_locY;// position to put next new GUI elements
@@ -44,8 +44,8 @@ require(
 		var g_clientAddress = "192.168.1.142";
 		var g_clientPort="0000"; // for sending OSC messages to 
 
-		var interfaceType=["nStateButton", "pushButton", "vslider", "hslider", "xyslider", "prslider", "none"];
-		var eventType=    ["nState",        "nState",     "range",   "range",   "range2D",  "range2D", "none"];
+		var interfaceType=["nStateButton", "pushButton", "vslider", "hslider", "xyslider", "prslider", "sceneChangeButton", "none"];
+		var eventType=    ["nState",        "nState",     "range",   "range",   "range2D",  "range2D", "sceneChange", "none"];
 
 
 		// get a json file defining an interface set and make a GUI out of it
@@ -258,6 +258,7 @@ require(
 		$( "#sliderdialog" ).dialog(guidialog);
 		$( "#xysliderdialog" ).dialog(guidialog);
 		$( "#prsliderdialog" ).dialog(guidialog);
+		$( "#sceneChangeButtondialog" ).dialog(guidialog);
 
 
 		$(document).bind("contextmenu", function(event) {
@@ -327,6 +328,8 @@ require(
 				$( "#xysliderdialog" ).data("guielmt", ge).dialog( "open", "foo" );
 			}else if  (utils.hasClass(ge, "prslider")){
 				$( "#prsliderdialog" ).data("guielmt", ge).dialog( "open", "foo" );
+			}else if  (utils.hasClass(ge, "sceneChangeButton")){
+				$( "#sceneChangeButtondialog" ).data("guielmt", ge).dialog( "open", "foo" );
 			}
 		}
 

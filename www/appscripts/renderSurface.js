@@ -1,6 +1,6 @@
 define(
-    ["messageSurface/appscripts/canvasSlider", "messageSurface/appscripts/jsaNStateButton", "messageSurface/appscripts/jsaPushButton", "messageSurface/appscripts/xySlider", "messageSurface/appscripts/canvasPitchRoll", "messageSurface/appscripts/io_messageMap", "messageSurface/appscripts/jsaSurfaceUtils"],
-        function(canvasSlider, jsaNStateButton, jsaPushButton, xySlider, prSlider, messageMap, surfaceUtils){
+    ["messageSurface/appscripts/canvasSlider", "messageSurface/appscripts/jsaNStateButton", "messageSurface/appscripts/jsaSceneChangeButton", "messageSurface/appscripts/jsaPushButton", "messageSurface/appscripts/xySlider", "messageSurface/appscripts/canvasPitchRoll", "messageSurface/appscripts/io_messageMap", "messageSurface/appscripts/jsaSurfaceUtils"],
+        function(canvasSlider, jsaNStateButton, jsaSceneChangeButton, jsaPushButton, xySlider, prSlider, messageMap, surfaceUtils){
 
         	var surface={};
 
@@ -57,6 +57,17 @@ define(
 
 					//gui=window.document.getElementById(id);
 					gui = jsaNStateButton(window,id, guidata.numStates);
+					gui.addEventListener('mousedown', function (e) {myButtonfunc(e);});
+
+					break;
+
+				case 'sceneChangeButton':
+					// the ui_elmt will be the firstChild of the div
+					newdiv.innerHTML = "<input  type=\"button\" class=\"ui_elmt sceneChangeButton\"  id = \"" + id  + "\"  style = \" border:5px solid " + ocolor + "; font-size: 30px; left:  0%; top: 0%; width: 100%;  height:100%; border-radius:20px; -webkit-appearance:button; background: -webkit-gradient(linear, left top, left bottom, from(#CCCCCC), to(#999999));\" />";
+					$('#app').append(newdiv);
+
+					//gui=window.document.getElementById(id);
+					gui = jsaSceneChangeButton(window,id, guidata.numStates);
 					gui.addEventListener('mousedown', function (e) {myButtonfunc(e);});
 
 					break;

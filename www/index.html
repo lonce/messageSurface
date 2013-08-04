@@ -59,10 +59,13 @@
         <label class="dialog-content" for="radio4">xy Box</label> <br>
 
         <input class="dialog-content" type="radio" id="radio5" name="RadioGroup1" value="5" />
-        <label class="dialog-content" for="radio4">pitch/roll</label> <br>
+        <label class="dialog-content" for="radio5">pitch/roll</label> <br>
 
-        <input class="dialog-content" type="radio" id="radio6" name="RadioGroup1" value="6" checked="true"/>
-        <label class="dialog-content" for="radio5">None</label> 
+        <input class="dialog-content" type="radio" id="radio6" name="RadioGroup1" value="6" />
+        <label class="dialog-content" for="radio6">sceneChange</label> <br>
+
+        <input class="dialog-content" type="radio" id="radio7" name="RadioGroup1" value="7" checked="true"/>
+        <label class="dialog-content" for="radio7">None</label> 
     </div>
 
     <div hidden class="dbox" id="sliderdialog" title="Slider">
@@ -136,6 +139,24 @@
         <label class="dialog-content" for="numStates">Number of States</label> <br>  
     </div>
 
+    <div hidden class="dbox" id="sceneChangeButtondialog" title="sceneChange Button">
+        <button type="button" id="deleteElement">Delete Element</button> 
+        <input class="dialog-content" id="paramioID"/>
+        <label class="dialog-content" for="paramioID">addressID</label> <br>
+        <input class="dialog-content" id="color"/>
+        <label class="dialog-content" for="color">Color</label> <br>
+        <input class="dialog-content" id="x"/>
+        <label class="dialog-content" for="x">x location</label> <br>
+        <input class="dialog-content" id="y"/>
+        <label class="dialog-content" for="y">y location</label> <br>  
+        <input class="dialog-content" id="width"/>
+        <label class="dialog-content" for="width">width</label> <br>  
+        <input class="dialog-content" id="height"/>
+        <label class="dialog-content" for="height">height</label> <br>  
+        <input class="dialog-content" id="numStates"/>
+        <label class="dialog-content" for="numStates">Number of States</label> <br>  
+    </div>
+    
     <div hidden class="dbox" id="pushButtondialog" title="Push Button">
         <button type="button" id="deleteElement">Delete Element</button> 
         <input class="dialog-content" id="paramioID"/>

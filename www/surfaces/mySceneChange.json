@@ -1,0 +1,72 @@
+{
+    "interface": [
+        {
+            "interfaceType": "sceneChangeButton",
+            "eventType": "sceneChange",
+            "paramioID": "/sceneChangeButton/83771",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "76.64%",
+                "y": "76.07%",
+                "width": "20%",
+                "height": "20%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/59824",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "15.01%",
+                "y": "8.06%",
+                "width": "64.06%",
+                "height": "33.75%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/51897",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "15.22%",
+                "y": "42.82%",
+                "width": "62.16%",
+                "height": "30.73%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "hslider",
+            "eventType": "range",
+            "paramioID": "/hslider/93695",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "12.05%",
+                "y": "82.87%",
+                "width": "58.99%",
+                "height": "9.57%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        }
+    ]
+}
