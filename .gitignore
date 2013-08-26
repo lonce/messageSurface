@@ -3,4 +3,5 @@
 *.lnk
 *.link
 node_modules
+www/jslibs/jquery*
 

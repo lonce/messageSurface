@@ -1,0 +1,157 @@
+{
+    "interface": [
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/Sleep",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "50.53%",
+                "y": "25.21%",
+                "width": "23.97%",
+                "height": "13.87%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "#555555"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/START",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "2.52%",
+                "y": "2.53%",
+                "width": "17.20%",
+                "height": "11.66%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/alloff",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "88.76%",
+                "y": "0.68%",
+                "width": "8.72%",
+                "height": "6.25%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "red"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/knock",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "4.56%",
+                "y": "21.96%",
+                "width": "40.27%",
+                "height": "15.03%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "brown"
+        },
+        {
+            "interfaceType": "hslider",
+            "eventType": "range",
+            "paramioID": "/hslider/creak",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "6.47%",
+                "y": "87.50%",
+                "width": "74.58%",
+                "height": "7.77%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "yellow"
+        },
+        {
+            "interfaceType": "vslider",
+            "eventType": "range",
+            "paramioID": "/vslider/sono",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "83.21%",
+                "y": "23.99%",
+                "width": "13.19%",
+                "height": "51.86%"
+            },
+            "orientation": "v",
+            "numStates": 2,
+            "color": "blue"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/sonoONOFF",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "85.37%",
+                "y": "80.07%",
+                "width": "13.19%",
+                "height": "7.77%"
+            },
+            "orientation": "h",
+            "numStates": "2",
+            "color": "blue"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/Thunder",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "26.99%",
+                "y": "6.08%",
+                "width": "64.60%",
+                "height": "14.53%"
+            },
+            "orientation": "h",
+            "numStates": "4",
+            "color": "purple"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/MIC",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "11.88%",
+                "y": "46.19%",
+                "width": "50.11%",
+                "height": "32.32%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        }
+    ]
+}
