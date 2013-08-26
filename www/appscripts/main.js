@@ -15,9 +15,9 @@ require.config({
 		"messageSurface": "..",
 		"jquery": "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min",
 		//LOCAL "jquery": "http://localhost:8002/jslibs/jquery.min",
-		"jquery-tools": "http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min"
+		"jquery-tools": "http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min",
 		//LOCAL "jquery-tools": "http://localhost:8002/jslibs/jquery.tools.min",
-		"jquery-ui": "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui",
+		"jquery-ui": "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui"
 		//LOCAL "jquery-ui": "http://localhost:8002/jslibs/jquery-ui"
 	},
 	// Insures that dependencies are completely loaded in the proper order
