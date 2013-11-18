@@ -1,0 +1,106 @@
+{
+    "interface": [
+        {
+            "interfaceType": "sceneChangeButton",
+            "eventType": "sceneChange",
+            "paramioID": "/sceneChangeButton/SceneChange",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "76.93%",
+                "y": "77.51%",
+                "width": "15.71%",
+                "height": "20.65%"
+            },
+            "orientation": "h",
+            "numStates": "2",
+            "color": "purple"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/pb1",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "3.02%",
+                "y": "74.18%",
+                "width": "52.56%",
+                "height": "21.53%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "blue"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/Trigger1",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "7.92%",
+                "y": "6.66%",
+                "width": "56.98%",
+                "height": "24.06%"
+            },
+            "orientation": "h",
+            "numStates": "2",
+            "color": "red"
+        },
+        {
+            "interfaceType": "vslider",
+            "eventType": "range",
+            "paramioID": "/vslider/slider",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "74.64%",
+                "y": "6.61%",
+                "width": "20.00%",
+                "height": "59.15%"
+            },
+            "orientation": "v",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/Trigger2",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "7.91%",
+                "y": "40.75%",
+                "width": "56.52%",
+                "height": "23.52%"
+            },
+            "orientation": "h",
+            "numStates": "2",
+            "color": "green"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/BG",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "-0.54%",
+                "y": "-0.54%",
+                "width": "6.79%",
+                "height": "7.54%"
+            },
+            "orientation": "h",
+            "numStates": "2",
+            "color": "black"
+        }
+    ]
+}

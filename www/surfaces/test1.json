@@ -1,0 +1,38 @@
+{
+    "interface": [
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/pb1",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "12.01%",
+                "y": "9.15%",
+                "width": "20%",
+                "height": "17.29%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "blue"
+        },
+        {
+            "interfaceType": "vslider",
+            "eventType": "range",
+            "paramioID": "/vslider/vs1",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "60.83%",
+                "y": "10.68%",
+                "width": "13.58%",
+                "height": "56.78%"
+            },
+            "orientation": "v",
+            "numStates": 2,
+            "color": "red"
+        }
+    ]
+}
