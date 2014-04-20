@@ -22,20 +22,31 @@ define(
 
 		var servermsg={};
 
-		servermsg.configure=function(ca,cp,sa,sp){
-			console.log("io_messageMap call configure with ca = " + ca + ", and cp = " + cp);
-			comm.configure(ca,cp,sa,sp);
+		var messageTarget=comm.sendJSONmsg;
+
+
+		// if method = "socket", then ca and cp should be the host and hostport
+		// if method is anything else, it is assumed to be a funciton to call with the message data
+		servermsg.configure=function(method, ca,cp,sa,sp){
+
+			if (method === "socket"){
+				console.log("io_messageMap call configure with ca = " + ca + ", and cp = " + cp);
+				comm.configure(ca,cp,sa,sp);
+				messageTarget=comm.sendJSONmsg;
+			} else{
+				messageTarget=method;
+			}
 		}
 
-		servermsg.send= function (oscstring){
+		servermsg.send = function (oscstring){
 			for(var i=0;i<oscstring.length;i++){
 				if (utils.isNumber(oscstring[i])) {
 					oscstring[i]=Number(oscstring[i]);
 				}
 			}
-
-			comm.sendJSONmsg('myOscMessage', oscstring);	
+			messageTarget('myOscMessage', oscstring);	
 		}
+
 
 		return servermsg;
 });

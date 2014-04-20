@@ -1,0 +1,72 @@
+{
+    "interface": [
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/12823",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "0.22%",
+                "y": "1.28%",
+                "width": "4.22%",
+                "height": "6.24%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/45010",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "6.39%",
+                "y": "10.72%",
+                "width": "30.30%",
+                "height": "28.16%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/32609",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "7.03%",
+                "y": "43.20%",
+                "width": "29.76%",
+                "height": "25.44%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "sceneChangeButton",
+            "eventType": "sceneChange",
+            "paramioID": "/sceneChangeButton/46754",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "36.04%",
+                "y": "74.72%",
+                "width": "7.90%",
+                "height": "10.08%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        }
+    ]
+}

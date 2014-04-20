@@ -1,0 +1,72 @@
+{
+    "interface": [
+        {
+            "interfaceType": "nStateButton",
+            "eventType": "nState",
+            "paramioID": "/nStateButton/BG",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "-0.51%",
+                "y": "-0.48%",
+                "width": "8.50%",
+                "height": "7.01%"
+            },
+            "orientation": "h",
+            "numStates": "1",
+            "color": "black"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/PushButton1",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "8.50%",
+                "y": "7.78%",
+                "width": "70.66%",
+                "height": "32.16%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "green"
+        },
+        {
+            "interfaceType": "pushButton",
+            "eventType": "nState",
+            "paramioID": "/pushButton/PushButton2",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "8.22%",
+                "y": "46.88%",
+                "width": "71.83%",
+                "height": "31.68%"
+            },
+            "orientation": "h",
+            "numStates": 2,
+            "color": "purple"
+        },
+        {
+            "interfaceType": "sceneChangeButton",
+            "eventType": "sceneChange",
+            "paramioID": "/sceneChangeButton/SceneChange",
+            "message": [
+                "mousedown"
+            ],
+            "position": {
+                "x": "71.80%",
+                "y": "85.68%",
+                "width": "16.78%",
+                "height": "11.62%"
+            },
+            "orientation": "h",
+            "numStates": "8",
+            "color": "red"
+        }
+    ]
+}

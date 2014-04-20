@@ -9,7 +9,7 @@ define(
 			};  // data for currently active gui elements
 
 			surface.configure = function(address, port){
-				messageMap.configure(address,port);
+				messageMap.configure("socket", address,port);
 			}
 
 			surface.getSurfaceData = function(){
