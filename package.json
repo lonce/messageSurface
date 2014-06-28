@@ -1,0 +1,20 @@
+{
+  "name": "messageSurface",
+  "version": "0.1.0",
+  "description": "graphical interface maker ( a la TouchOSC or Control)",
+  "main": "messageSurface.js",
+  "dependencies": {
+    "express": "~3.1.0",
+    "socket.io": "~0.9.13"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lonce/messageSurface.git"
+  },
+  "author": "Lonce Wyse",
+  "license": "lgpl"
+}
